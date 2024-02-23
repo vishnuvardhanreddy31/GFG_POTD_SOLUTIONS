@@ -31,8 +31,8 @@ Complete the function `maxProfit()` which takes an integer array `price` as the 
 
 ### Constraints:
 
-- 1 <= n <= 105
-- 1 <= price[i] <= 105
+- 1 <= n <= 10^5
+- 1 <= price[i] <= 10^5
 
 ### Expected Time Complexity:
 
