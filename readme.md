@@ -1,79 +1,75 @@
-## 23-02-24
+# Maximum Sum Problem
 
-# Buy and Sell a Share at most twice
+## 24-02-23
 
-## Problem Statement:
+## Problem Description
 
-In daily share trading, a buyer buys shares in the morning and sells them on the same day. If the trader is allowed to make at most 2 transactions in a day, the second transaction can only start after the first one is complete (buy->sell->buy->sell). The stock prices throughout the day are represented in the form of an array of prices.
+A number `n` can be broken into three parts `n/2`, `n/3`, and `n/4` (consider only the integer part). Each number obtained in this process can be divided further recursively. Find the maximum sum that can be obtained by summing up the divided parts together. Note: It is possible that we don't divide the number at all.
 
-Given an array `price` of size `n`, find out the maximum profit that a share trader could have made.
+## Examples
 
-### Example:
+### Example 1:
 
-#### Input:
-
-```
-n = 6
-prices[] = {10,22,5,75,65,80}
-```
-
-#### Output:
+**Input:**
 
 ```
-87
+n = 12
 ```
 
-Explanation: Trader earns 87 as sum of 12, 75 Buy at 10, sell at 22, Buy at 5 and sell at 80.
+**Output:**
 
-## Implementation:
+```
+13
+```
 
-Complete the function `maxProfit()` which takes an integer array `price` as the only argument and returns an integer, representing the maximum profit, if only two transactions are allowed.
+**Explanation:**
+Break n = 12 into three parts {12/2, 12/3, 12/4} = {6, 4, 3}, now current sum is = (6 + 4 + 3) = 13. Further breaking 6, 4, and 3 into parts will produce a sum less than or equal to 6, 4, and 3 respectively.
 
-### Constraints:
+### Example 2:
 
-- 1 <= n <= 10^5
-- 1 <= price[i] <= 10^5
+**Input:**
 
-### Expected Time Complexity:
+```
+n = 24
+```
 
-O(n)
+**Output:**
 
-## Expected Space Complexity:
+```
+27
+```
 
-O(n)
+**Explanation:**
+Break n = 24 into three parts {24/2, 24/3, 24/4} = {12, 8, 6}, now the current sum is = (12 + 8 + 6) = 26. But recursively breaking 12 would produce a value of 13. So our maximum sum is 13 + 8 + 6 = 27.
 
-## Solution
+## Your Task
+
+You don't need to read input or print anything. Your task is to complete the function `maxSum()` which accepts an integer `n` and returns the maximum sum.
+
+## Constraints
+
+- 0 <= n <= 10^6
+
+## Expected Complexity
+
+- Expected Time Complexity: O(n)
+- Expected Auxiliary Space: O(n)
+
+# Python Solution
 
 ```python
-
-from typing import List
-
-
 class Solution:
-    def maxProfit(self, n : int, price : List[int]) -> int:
+    def maxSum(self, n):
+        dp = [-1 for _ in range(n + 1)]
 
-        profit = [0]*n
+        def helper(n, dp):
+            if n == 0 or n == 1:
+                return n
+            if dp[n] != -1:
+                return dp[n]
+            else:
+                dp[n] = max(n, helper(n // 3, dp) + helper(n // 2, dp) + helper(n // 4, dp))
+                return dp[n]
 
-        max_price = price[n-1]
-
-        for i in range(n-2, 0, -1):
-
-            if price[i] > max_price:
-                max_price = price[i]
-
-            profit[i] = max(profit[i+1], max_price - price[i])
-
-        min_price = price[0]
-
-        for i in range(1, n):
-
-            if price[i] < min_price:
-                min_price = price[i]
-
-            profit[i] = max(profit[i-1], profit[i]+(price[i]-min_price))
-
-        result = profit[n-1]
-
-        return result
-
+        return helper(n, dp)
 ```
