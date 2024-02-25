@@ -1,10 +1,10 @@
-# Maximum Sum Problem
+# Reach a Given Score
 
-## 24-02-23
+## 25-02-2024
 
 ## Problem Description
 
-A number `n` can be broken into three parts `n/2`, `n/3`, and `n/4` (consider only the integer part). Each number obtained in this process can be divided further recursively. Find the maximum sum that can be obtained by summing up the divided parts together. Note: It is possible that we don't divide the number at all.
+Consider a game where a player can score 3, 5, or 10 points in a move. Given a total score `n`, find the number of distinct combinations to reach the given score.
 
 ## Examples
 
@@ -13,42 +13,42 @@ A number `n` can be broken into three parts `n/2`, `n/3`, and `n/4` (consider on
 **Input:**
 
 ```
-n = 12
+n = 10
 ```
 
 **Output:**
 
 ```
-13
+2
 ```
 
 **Explanation:**
-Break n = 12 into three parts {12/2, 12/3, 12/4} = {6, 4, 3}, now current sum is = (6 + 4 + 3) = 13. Further breaking 6, 4, and 3 into parts will produce a sum less than or equal to 6, 4, and 3 respectively.
+There are two ways {5,5} and {10}.
 
 ### Example 2:
 
 **Input:**
 
 ```
-n = 24
+n = 20
 ```
 
 **Output:**
 
 ```
-27
+4
 ```
 
 **Explanation:**
-Break n = 24 into three parts {24/2, 24/3, 24/4} = {12, 8, 6}, now the current sum is = (12 + 8 + 6) = 26. But recursively breaking 12 would produce a value of 13. So our maximum sum is 13 + 8 + 6 = 27.
+There are four possible ways. {5,5,5,5}, {3,3,3,3,3,5}, {10,10}, {5,5,10}.
 
 ## Your Task
 
-You don't need to read input or print anything. Your task is to complete the function `maxSum()` which accepts an integer `n` and returns the maximum sum.
+You don't need to read input or print anything. Your task is to complete the function `count()` which takes `n` as an input parameter and returns the answer to the problem.
 
 ## Constraints
 
-- 0 <= n <= 10^6
+- 1 ≤ n ≤ 10^6
 
 ## Expected Complexity
 
@@ -59,17 +59,17 @@ You don't need to read input or print anything. Your task is to complete the fun
 
 ```python
 class Solution:
-    def maxSum(self, n):
-        dp = [-1 for _ in range(n + 1)]
+    def count(self, n: int) -> int:
+        ways = [0] * (n + 1)
 
-        def helper(n, dp):
-            if n == 0 or n == 1:
-                return n
-            if dp[n] != -1:
-                return dp[n]
-            else:
-                dp[n] = max(n, helper(n // 3, dp) + helper(n // 2, dp) + helper(n // 4, dp))
-                return dp[n]
+        # Base case (If given value is 0)
+        ways[0] = 1
 
-        return helper(n, dp)
+        # Consider all possible moves
+        moves = [3, 5, 10]
+        for i in range(3):
+            for j in range(moves[i], n+1):
+                ways[j] += ways[j - moves[i]]
+
+        return ways[n]
 ```
