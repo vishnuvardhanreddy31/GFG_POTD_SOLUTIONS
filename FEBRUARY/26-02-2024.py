@@ -1,15 +1,16 @@
 class Solution:
-	def AllPossibleStrings(self, s):
-		# Code here
-		def solve(s,n,i,ans):
-		    if i==len(s):
-		        if n!="":
-		            ans.append(n)
-		            n=""
-		    else:
-		        solve(s,n+s[i],i+1,ans)
-		        solve(s,n,i+1,ans)
-		ans=[]
-		solve(s,"",0,ans)
-		ans.sort()
-		return ans
+    def AllPossibleStrings(self, s):
+        # Code here
+        def solve(s, current, index, result):
+            if index == len(s):
+                if current != "":
+                    result.append(current)
+                    current = ""
+            else:
+                solve(s, current + s[index], index + 1, result)
+                solve(s, current, index + 1, result)
+
+        result = []
+        solve(s, "", 0, result)
+        result.sort()
+        return result
