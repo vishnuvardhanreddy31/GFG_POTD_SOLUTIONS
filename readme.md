@@ -1,86 +1,83 @@
-# Play With OR
+# Divisible By Eight
 
-## 27-02-2024
+## 28-02-2024
 
-## Description
+## Problem Statement
 
-Given an array `arr[]` of length `n`, the task is to reconstruct the array in-place. Each element `arr[i]` after reconstruction will become `arr[i] OR arr[i+1]`, where `OR` is the bitwise OR operation. If for some `i`, `i+1` does not exist, then `arr[i]` remains unchanged.
+Given a string representation of a decimal number `s`, check whether it is divisible by 8.
 
 ## Example
 
 ### Example 1:
 
-#### Input:
+**Input:**
 
 ```
-n = 5
-arr[] = {10, 11, 1, 2, 3}
+s = "16"
 ```
 
-#### Output:
+**Output:**
 
 ```
-11 11 3 3 3
+1
 ```
 
-#### Explanation:
-
-- At index 0, `arr[0] OR arr[1] = 11`
-- At index 1, `arr[1] OR arr[2] = 11`
-- At index 2, `arr[2] OR arr[3] = 3`
-- ...
-- At index 4, No element is left, so it will remain as it is.
-
-New Array will be `{11, 11, 3, 3, 3}`.
+**Explanation:**
+The given number is divisible by 8, so the driver code prints 1 as the output.
 
 ### Example 2:
 
-#### Input:
+**Input:**
 
 ```
-n = 4
-arr[] = {5, 9, 2, 6}
+s = "54141111648421214584416464555"
 ```
 
-#### Output:
+**Output:**
 
 ```
-13 11 6 6
+-1
 ```
 
-#### Explanation:
-
-- At index 0, `arr[0] OR arr[1] = 13`
-- At index 1, `arr[1] OR arr[2] = 11`
-- At index 2, `arr[2] OR arr[3] = 6`
-- At index 3, No element is left, so it will remain as it is.
-
-New Array will be `{13, 11, 6, 6}`.
+**Explanation:**
+Given Number is not divisible by 8, so the driver code prints -1 as the output.
 
 ## Your Task
 
-You are required to implement the function `game_with_number()`, which takes an array `arr`, representing values at each index, and the size of the array `n`. The function should modify the elements of the same array `arr[]` in-place by replacing them with the values obtained by performing the bitwise OR operation on consecutive elements.
+You don't need to read input or print anything. Your task is to complete the function `DivisibleByEight(s)` which takes a string `s` as the input and returns `1` if the number is divisible by 8, else it returns `-1`.
 
 ## Constraints
 
-- `1 ≤ n ≤ 10^5`
-- `1 ≤ arr[i] ≤ 10^7`
+- 1 <= Number represented by the string `s` < 10^6
 
-## Expected Complexity
+## Note
 
-- Expected Time Complexity: `O(n)`
-- Expected Auxiliary Space: `O(1)`
+- Expected Time Complexity: O(1).
+- Expected Auxillary Space: O(1).
 -
-
-## Python Solution
 
 ```python
 
 class Solution:
-    def game_with_number (self, arr,  n) :
-        #Complete the function
-        for i in range(n - 1):
-            arr[i] = arr[i] | arr[i + 1]
-        return arr
+    def DivisibleByEight(self, s):
+        # Remove non-numeric characters from the string
+        s = ''.join(c for c in s if c.isdigit())
 
+        # Check if the cleaned string is empty
+        if not s:
+            return -1  # If the string becomes empty after removing non-numeric characters, it's not divisible by 8
+
+        # Check if the entire string is less than 4 digits
+        if len(s) < 4:
+            if int(s) % 8 == 0:
+                return 1  # divisible by 8
+            else:
+                return -1  # not divisible by 8
+        else:
+            # Check the last three digits of the cleaned string
+            num = int(s[-3:])
+            if num == 0 or num % 8 == 0:
+                return 1  # divisible by 8
+            else:
+                return -1  # not divisible by 8
 ```
