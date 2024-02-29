@@ -1,83 +1,75 @@
-# Divisible By Eight
+# Sum of Bit Differences
 
-## 28-02-2024
+## 29-02-2024
 
-## Problem Statement
+## Problem Description
 
-Given a string representation of a decimal number `s`, check whether it is divisible by 8.
+Given an array of integers `arr[]` containing `n` elements, find the sum of bit differences between all pairs of elements in the array. The bit difference of a pair (x, y) is the count of different bits at the same positions in the binary representations of x and y. Note that (x, y) and (y, x) are considered two separate pairs.
 
-## Example
+### Example
 
-### Example 1:
+#### Example 1:
 
-**Input:**
-
-```
-s = "16"
-```
-
-**Output:**
+Input:
 
 ```
-1
+n = 2
+arr[] = {1, 2}
 ```
 
-**Explanation:**
-The given number is divisible by 8, so the driver code prints 1 as the output.
-
-### Example 2:
-
-**Input:**
+Output:
 
 ```
-s = "54141111648421214584416464555"
+4
 ```
 
-**Output:**
+Explanation:
+All possible pairs of the array are (1, 1), (1, 2), (2, 1), (2, 2).
+Sum of bit differences = 0 + 2 + 2 + 0 = 4
+
+#### Example 2:
+
+Input:
 
 ```
--1
+n = 3
+arr[] = {1, 3, 5}
 ```
 
-**Explanation:**
-Given Number is not divisible by 8, so the driver code prints -1 as the output.
+Output:
 
-## Your Task
+```
+8
+```
 
-You don't need to read input or print anything. Your task is to complete the function `DivisibleByEight(s)` which takes a string `s` as the input and returns `1` if the number is divisible by 8, else it returns `-1`.
+Explanation:
+All possible pairs of the array are (1, 1), (1, 3), (1, 5), (3, 1), (3, 3), (3, 5), (5, 1), (5, 3), (5, 5).
+Sum of bit differences = 0 + 1 + 1 + 1 + 0 + 2 + 1 + 2 + 0 = 8
 
-## Constraints
+### Constraints
 
-- 1 <= Number represented by the string `s` < 10^6
+- 1 <= n <= 10^5
+- 1 <= arr[i] <= 10^5
 
-## Note
+## Complexity Analysis
 
-- Expected Time Complexity: O(1).
-- Expected Auxillary Space: O(1).
--
+- Expected Time Complexity: O(n)
+- Expected Auxiliary Space: O(1)
+
+## Python Solution
 
 ```python
 
+# User function Template for python3
 class Solution:
-    def DivisibleByEight(self, s):
-        # Remove non-numeric characters from the string
-        s = ''.join(c for c in s if c.isdigit())
+    def sumBitDifferences(self, arr, n):
+        ans = 0
+        for i in range(0, 32):
+            count = 0
+            for j in range(n):
+                if (arr[j] & (1 << i)):
+                    count += 1
+            ans += (count * (n - count) * 2)
 
-        # Check if the cleaned string is empty
-        if not s:
-            return -1  # If the string becomes empty after removing non-numeric characters, it's not divisible by 8
-
-        # Check if the entire string is less than 4 digits
-        if len(s) < 4:
-            if int(s) % 8 == 0:
-                return 1  # divisible by 8
-            else:
-                return -1  # not divisible by 8
-        else:
-            # Check the last three digits of the cleaned string
-            num = int(s[-3:])
-            if num == 0 or num % 8 == 0:
-                return 1  # divisible by 8
-            else:
-                return -1  # not divisible by 8
+        return ans
 ```
