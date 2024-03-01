@@ -1,75 +1,70 @@
-# Sum of Bit Differences
+---
 
-## 29-02-2024
+# Peak Element 
+## 01-03-2024
 
 ## Problem Description
 
-Given an array of integers `arr[]` containing `n` elements, find the sum of bit differences between all pairs of elements in the array. The bit difference of a pair (x, y) is the count of different bits at the same positions in the binary representations of x and y. Note that (x, y) and (y, x) are considered two separate pairs.
+Given an array of integers `arr[]` of size `n`, find its peak element. An element is considered to be peak if its value is greater than or equal to the values of its adjacent elements (if they exist). The array is guaranteed to be in ascending order before the peak element and in descending order after it.
 
-### Example
+## Example
 
-#### Example 1:
+### Example 1
 
-Input:
-
-```
-n = 2
-arr[] = {1, 2}
-```
-
-Output:
-
-```
-4
-```
-
-Explanation:
-All possible pairs of the array are (1, 1), (1, 2), (2, 1), (2, 2).
-Sum of bit differences = 0 + 2 + 2 + 0 = 4
-
-#### Example 2:
-
-Input:
-
+**Input:**
 ```
 n = 3
-arr[] = {1, 3, 5}
+arr[] = {1, 2, 3}
 ```
+**Peak Element's Index:** 2
 
-Output:
+**Output:** 1
 
+**Explanation:** If the index returned is 2, then the output printed will be 1. Since `arr[2] = 3` is greater than its adjacent elements, and there is no element after it, we can consider it as a peak element. No other index satisfies the same property.
+
+### Example 2
+
+**Input:**
 ```
-8
+n = 3
+arr[] = {3, 4, 2}
 ```
+**Peak Element's Index:** 1
 
-Explanation:
-All possible pairs of the array are (1, 1), (1, 3), (1, 5), (3, 1), (3, 3), (3, 5), (5, 1), (5, 3), (5, 5).
-Sum of bit differences = 0 + 1 + 1 + 1 + 0 + 2 + 1 + 2 + 0 = 8
+**Output:** 1
 
-### Constraints
+**Explanation:** If the index returned is 1, then the output printed will be 1. Since `arr[1] = 4` is greater than its adjacent elements, and there is no element after it, we can consider it as a peak element. No other index satisfies the same property.
 
-- 1 <= n <= 10^5
-- 1 <= arr[i] <= 10^5
+## Your Task
 
-## Complexity Analysis
+You don't have to read input or print anything. Complete the function `peakElement()` which takes the array `arr[]` and its size `n` as input parameters and returns the index of the peak element.
 
-- Expected Time Complexity: O(n)
-- Expected Auxiliary Space: O(1)
+**Expected Time Complexity:** O(log(n)).
 
-## Python Solution
+**Expected Auxiliary Space:** O(1)
+
+## Constraints
+
+- 1 ≤ n ≤ 10^5
+- 1 ≤ arr[i] ≤ 10^6
+
+
+---
 
 ```python
-
-# User function Template for python3
 class Solution:
-    def sumBitDifferences(self, arr, n):
-        ans = 0
-        for i in range(0, 32):
-            count = 0
-            for j in range(n):
-                if (arr[j] & (1 << i)):
-                    count += 1
-            ans += (count * (n - count) * 2)
+    def peakElement(self,arr, n):
+        # Code here
+        left,right=0,n-1
+        while left<right:
+            mid=left+(right-left)//2
 
-        return ans
+            if arr[mid]>arr[mid+1]:
+                right=mid
+
+            else:
+                left=mid+1
+        return left
+
+
 ```
