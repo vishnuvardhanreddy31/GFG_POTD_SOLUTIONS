@@ -1,6 +1,5 @@
----
+# Peak Element
 
-# Peak Element 
 ## 01-03-2024
 
 ## Problem Description
@@ -12,10 +11,12 @@ Given an array of integers `arr[]` of size `n`, find its peak element. An elemen
 ### Example 1
 
 **Input:**
+
 ```
 n = 3
 arr[] = {1, 2, 3}
 ```
+
 **Peak Element's Index:** 2
 
 **Output:** 1
@@ -25,10 +26,12 @@ arr[] = {1, 2, 3}
 ### Example 2
 
 **Input:**
+
 ```
 n = 3
 arr[] = {3, 4, 2}
 ```
+
 **Peak Element's Index:** 1
 
 **Output:** 1
@@ -47,9 +50,6 @@ You don't have to read input or print anything. Complete the function `peakEleme
 
 - 1 ≤ n ≤ 10^5
 - 1 ≤ arr[i] ≤ 10^6
-
-
----
 
 ```python
 class Solution:
