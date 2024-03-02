@@ -69,25 +69,21 @@ O(n)
 ## Python Solution
 
 ```python
+from collections import OrderedDict
+
 class Solution:
-    def maximumOddBinaryNumber(self, s: str) -> str:
-        no_ones=0
-        for i in s:
-            if i=='1':
-                no_ones+=1
-        ans=''
-        for i in range(no_ones-1):
-            ans+='1'
-        if no_ones!=1:
-            remaining=len(s)-no_ones
-            for i in range(remaining):
-                ans+='0'
-            ans+='1'
-            return ans
+    def firstElementKTime(self, n, k, a):
+        # code here
+        num_map=OrderedDict()
+        for i in a:
+            if i not in num_map:
+                num_map[i]=1
+            else:
+                num_map[i]+=1
+
+            if num_map[i]==k:
+                return i
         else:
-            for i in range(len(s)-1):
-                ans+='0'
-            ans+='1'
-            return ans
+            return -1
 
 ```
