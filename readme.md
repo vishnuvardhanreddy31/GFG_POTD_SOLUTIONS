@@ -1,70 +1,93 @@
-# Peak Element
+# First Element to Occur K Times
 
-## 01-03-2024
+## 02-03-2024
 
-## Problem Description
+## Problem Statement:
 
-Given an array of integers `arr[]` of size `n`, find its peak element. An element is considered to be peak if its value is greater than or equal to the values of its adjacent elements (if they exist). The array is guaranteed to be in ascending order before the peak element and in descending order after it.
+Given an array of `n` integers, find the first element that occurs at least `k` number of times.
 
-## Example
+### Input:
 
-### Example 1
+- `n` (1 <= n <= 10^4): Size of the array.
+- `k` (1 <= k <= 100): Minimum number of occurrences required.
+- `a[]`: An array of integers where each element (1 <= a[i] <= 200) represents an integer.
 
-**Input:**
+### Output:
 
+Return the first element that occurs at least `k` times. If no such element is found, return -1.
+
+## Examples:
+
+### Example 1:
+
+```plaintext
+Input:
+n = 7, k = 2
+a[] = {1, 7, 4, 3, 4, 8, 7}
+
+Output:
+4
+
+Explanation:
+Both 7 and 4 occur 2 times. However, 4 is the first element that occurs twice. At index 4, the element 4 has occurred twice, whereas 7 appeared twice at index 6.
 ```
-n = 3
-arr[] = {1, 2, 3}
+
+### Example 2:
+
+```plaintext
+Input:
+n = 10, k = 3
+a[] = {3, 1, 3, 4, 5, 1, 3, 3, 5, 4}
+
+Output:
+3
+
+Explanation:
+Here, 3 is the only number that appeared 3 times in the array.
 ```
 
-**Peak Element's Index:** 2
+## Constraints:
 
-**Output:** 1
+- 1 <= n <= 10^4
+- 1 <= k <= 100
+- 1 <= a[i] <= 200
 
-**Explanation:** If the index returned is 2, then the output printed will be 1. Since `arr[2] = 3` is greater than its adjacent elements, and there is no element after it, we can consider it as a peak element. No other index satisfies the same property.
+## Note:
 
-### Example 2
+- Your task is to implement the function `firstElementKTime` to solve the problem.
+- Do not read input or print anything. The function should take the array `a[]`, its size `n`, and an integer `k` as input arguments and return the required answer.
+- If the answer is not present in the array, return -1.
 
-**Input:**
+## Expected Time Complexity:
 
-```
-n = 3
-arr[] = {3, 4, 2}
-```
+O(n)
 
-**Peak Element's Index:** 1
+## Expected Auxiliary Space:
 
-**Output:** 1
+O(n)
 
-**Explanation:** If the index returned is 1, then the output printed will be 1. Since `arr[1] = 4` is greater than its adjacent elements, and there is no element after it, we can consider it as a peak element. No other index satisfies the same property.
-
-## Your Task
-
-You don't have to read input or print anything. Complete the function `peakElement()` which takes the array `arr[]` and its size `n` as input parameters and returns the index of the peak element.
-
-**Expected Time Complexity:** O(log(n)).
-
-**Expected Auxiliary Space:** O(1)
-
-## Constraints
-
-- 1 ≤ n ≤ 10^5
-- 1 ≤ arr[i] ≤ 10^6
+## Python Solution
 
 ```python
 class Solution:
-    def peakElement(self,arr, n):
-        # Code here
-        left,right=0,n-1
-        while left<right:
-            mid=left+(right-left)//2
-
-            if arr[mid]>arr[mid+1]:
-                right=mid
-
-            else:
-                left=mid+1
-        return left
-
+    def maximumOddBinaryNumber(self, s: str) -> str:
+        no_ones=0
+        for i in s:
+            if i=='1':
+                no_ones+=1
+        ans=''
+        for i in range(no_ones-1):
+            ans+='1'
+        if no_ones!=1:
+            remaining=len(s)-no_ones
+            for i in range(remaining):
+                ans+='0'
+            ans+='1'
+            return ans
+        else:
+            for i in range(len(s)-1):
+                ans+='0'
+            ans+='1'
+            return ans
 
 ```
