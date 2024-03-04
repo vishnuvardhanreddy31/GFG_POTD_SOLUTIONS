@@ -1,85 +1,73 @@
-# Largest Number formed from an Array
+# Swap Array Elements
 
-## 03-03-2024
+## 04-03-2024
 
-## Problem Statement:
+## Problem Statement
 
-Given an array of strings `arr[]` of length n representing non-negative integers, arrange them in a manner, such that, after concatenating them in order, it results in the largest possible number. Since the result may be very large, return it as a string.
+Given an array `arr` of n positive integers. The task is to swap every ith element of the array with (i+2)th element.
 
-### Input:
+### Example
 
-- `n` (1 <= n <= 10^5): Size of the array.
-- `arr[]`: An array of strings where each element (1 <= len(arr[i]) <= 18) represents a non-negative integer.
+#### Example 1:
 
-### Output:
+Input:
 
-Return a string denoting the largest possible number after arranging the elements of the array.
+```
+n = 3
+arr[] = 1 2 3
+```
 
-## Examples:
+Output:
 
-### Example 1:
+```
+3 2 1
+```
 
-**Input:**
+Explanation:
+Swapping 1 and 3, makes the array 3 2 1. There is only one swap possible in this array.
 
-```python
+#### Example 2:
+
+Input:
+
+```
 n = 5
-arr[] = {"3", "30", "34", "5", "9"}
+arr[] = 1 2 3 4 5
 ```
 
-**Output:**
+Output:
 
-```python
-"9534330"
+```
+3 4 5 2 1
 ```
 
-**Explanation:**
-Given numbers are {"3", "30", "34", "5", "9"}. The arrangement "9534330" gives the largest value.
+Explanation:
 
-### Example 2:
+- Swapping 1 and 3, makes the array 3 2 1 4 5.
+- Now, swapping 2 and 4, makes the array 3 4 1 2 5.
+- Again, swapping 1 and 5, makes the array 3 4 5 2 1.
 
-**Input:**
+## Your Task
 
-```python
-n = 4
-arr[] = {"54", "546", "548", "60"}
-```
+Your task is to complete the function `swapElements(arr, n)`, which should swap each ith element with (i+2)th element.
 
-**Output:**
+### Constraints:
 
-```python
-"6054854654"
-```
+- 1 <= n <= 10^6
+- 0 <= arr[i] <= 10^9
 
-**Explanation:**
-Given numbers are {"54", "546", "548", "60"}. The arrangement "6054854654" gives the largest value.
+### Expected Time Complexity: O(n)
 
-## Constraints:
+### Expected Auxiliary Space: O(1)
 
-- 1 <= n <= 10^5
-- 0 <= len(arr[i]) <= 18
-- Sum of all the elements of the array is greater than 0.
-
-## Note:
-
-- Your task is to implement the function `printLargest(arr: List[str]) -> str` to solve the problem.
-- Do not read input or print anything. The function should take the array `arr[]` as an input argument and return the required answer.
-- Your solution should have an expected time complexity of O(n\*log(n)).
-- Your solution should have an expected auxiliary space complexity of O(n).
-
-## Python Solution
+## Python code
 
 ```python
-from functools import cmp_to_key
-
 class Solution:
-    def printLargest(self, n, array):
-        def custom_compare(x, y):
-            xy = x + y
-            yx = y + x
-            return (xy > yx) - (xy < yx)
-
-        array.sort(key=cmp_to_key(custom_compare), reverse=True)
-
-        return "".join(map(str, array))
+	def swapElements(self, arr, n):
+	    #Code heren-2
+	    if n>=2:
+	        for i in range(n-2):
+	            arr[i],arr[i+2]=arr[i+2],arr[i]
 
 ```
