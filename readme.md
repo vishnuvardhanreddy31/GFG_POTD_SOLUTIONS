@@ -1,73 +1,65 @@
-# Swap Array Elements
+# Maximum Index
 
-## 04-03-2024
+## 05-03-2024
 
-## Problem Statement
+**Problem Statement:**
 
-Given an array `arr` of n positive integers. The task is to swap every ith element of the array with (i+2)th element.
+Given an array `a` of `n` positive integers. The task is to find the maximum of `j - i` subjected to the constraint of `a[i] < a[j]` and `i < j`.
 
-### Example
+**Example:**
 
-#### Example 1:
+- Input:
+  - `n = 2`
+  - `a[] = {1, 10}`
+- Output:
+  - `1`
+- Explanation:
 
-Input:
+  - `a[0] < a[1]` so `(j-i)` is `1-0 = 1`.
 
-```
-n = 3
-arr[] = 1 2 3
-```
+- Input:
+  - `n = 9`
+  - `a[] = {34, 8, 10, 3, 2, 80, 30, 33, 1}`
+- Output:
+  - `6`
+- Explanation:
+  - In the given array `a[1] < a[7]` satisfying the required condition (`a[i] < a[j]`) thus giving the maximum difference of `j - i` which is `6(7-1)`.
 
-Output:
+**Your Task:**
 
-```
-3 2 1
-```
+The task is to complete the function `maxIndexDiff()` which finds and returns maximum index difference. Printing the output will be handled by driver code.
 
-Explanation:
-Swapping 1 and 3, makes the array 3 2 1. There is only one swap possible in this array.
+**Expected Time Complexity:** O(N)
+**Expected Auxiliary Space:** O(N)
 
-#### Example 2:
+**Constraints:**
 
-Input:
+- 1 ≤ n ≤ 10^6
+- 0 ≤ a[i] ≤ 10^9
 
-```
-n = 5
-arr[] = 1 2 3 4 5
-```
-
-Output:
-
-```
-3 4 5 2 1
-```
-
-Explanation:
-
-- Swapping 1 and 3, makes the array 3 2 1 4 5.
-- Now, swapping 2 and 4, makes the array 3 4 1 2 5.
-- Again, swapping 1 and 5, makes the array 3 4 5 2 1.
-
-## Your Task
-
-Your task is to complete the function `swapElements(arr, n)`, which should swap each ith element with (i+2)th element.
-
-### Constraints:
-
-- 1 <= n <= 10^6
-- 0 <= arr[i] <= 10^9
-
-### Expected Time Complexity: O(n)
-
-### Expected Auxiliary Space: O(1)
-
-## Python code
+## Python Solution
 
 ```python
 class Solution:
-	def swapElements(self, arr, n):
-	    #Code heren-2
-	    if n>=2:
-	        for i in range(n-2):
-	            arr[i],arr[i+2]=arr[i+2],arr[i]
-
+    # Function to find the maximum index difference.
+    def maxIndexDiff(self, a, n):
+        if n == 1:
+            return 0
+        ans = -1
+        lmin = [0] * n
+        rmax = [0] * n
+        lmin[0] = a[0]
+        for i in range(1, n):
+            lmin[i] = min(lmin[i - 1], a[i])
+        rmax[n - 1] = a[n - 1]
+        for j in range(n - 2, -1, -1):
+            rmax[j] = max(rmax[j + 1], a[j])
+        i, j = 0, 0
+        while i < n and j < n:
+            if lmin[i] <= rmax[j]:
+                ans = max(ans, j - i)
+                j += 1
+            else:
+                i += 1
+        return ans
 ```
