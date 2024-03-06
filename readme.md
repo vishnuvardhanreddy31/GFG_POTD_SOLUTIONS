@@ -1,65 +1,95 @@
-# Maximum Index
+# Rabin-Karp Algorithm
 
-## 05-03-2024
+## 06-03-2024
 
-**Problem Statement:**
+## Problem Statement
 
-Given an array `a` of `n` positive integers. The task is to find the maximum of `j - i` subjected to the constraint of `a[i] < a[j]` and `i < j`.
+You are given a text string and a pattern string. Your task is to find and print the starting indices (1-based) of all occurrences of the pattern string in the text string.
 
-**Example:**
+### Example
 
-- Input:
-  - `n = 2`
-  - `a[] = {1, 10}`
-- Output:
-  - `1`
-- Explanation:
+#### Example 1:
 
-  - `a[0] < a[1]` so `(j-i)` is `1-0 = 1`.
+**Input:**
 
-- Input:
-  - `n = 9`
-  - `a[] = {34, 8, 10, 3, 2, 80, 30, 33, 1}`
-- Output:
-  - `6`
-- Explanation:
-  - In the given array `a[1] < a[7]` satisfying the required condition (`a[i] < a[j]`) thus giving the maximum difference of `j - i` which is `6(7-1)`.
+```
+text = "birthdayboy"
+pattern = "birth"
+```
 
-**Your Task:**
+**Output:**
 
-The task is to complete the function `maxIndexDiff()` which finds and returns maximum index difference. Printing the output will be handled by driver code.
+```
+[1]
+```
 
-**Expected Time Complexity:** O(N)
-**Expected Auxiliary Space:** O(N)
+**Explanation:**
+The string "birth" occurs at index 1 in the text.
 
-**Constraints:**
+#### Example 2:
 
-- 1 ≤ n ≤ 10^6
-- 0 ≤ a[i] ≤ 10^9
+**Input:**
+
+```
+text = "geeksforgeeks"
+pattern = "geek"
+```
+
+**Output:**
+
+```
+[1, 9]
+```
+
+**Explanation:**
+The string "geek" occurs twice in the text, once at index 1 and once at index 9.
+
+### Constraints
+
+- 1 <= |text| <= 5 \* 10^5
+- 1 <= |pattern| <= |text|
+
+### Note
+
+Your task is to complete the function `search()` which takes the string `text` and the string `pattern` as input and returns an array denoting the start indices (1-based) of the substring pattern in the string text.
+
+## Explanation
+
+Implement the Rabin-Karp algorithm to efficiently search for the pattern in the given text. The algorithm is expected to have a time complexity of O(|text| + |pattern|) and auxiliary space complexity of O(1).
 
 ## Python Solution
 
 ```python
 class Solution:
-    # Function to find the maximum index difference.
-    def maxIndexDiff(self, a, n):
-        if n == 1:
-            return 0
-        ans = -1
-        lmin = [0] * n
-        rmax = [0] * n
-        lmin[0] = a[0]
-        for i in range(1, n):
-            lmin[i] = min(lmin[i - 1], a[i])
-        rmax[n - 1] = a[n - 1]
-        for j in range(n - 2, -1, -1):
-            rmax[j] = max(rmax[j + 1], a[j])
-        i, j = 0, 0
-        while i < n and j < n:
-            if lmin[i] <= rmax[j]:
-                ans = max(ans, j - i)
-                j += 1
-            else:
-                i += 1
-        return ans
+    def search(self, pattern, text):
+        out = []
+        mod = 10
+        h = len(pattern)
+        n = len(text)
+        hashp = 0
+        hasht = 0
+        p = 1
+
+        for i in range(h - 1):
+            p = (p * 26) % mod
+
+        for i in range(h):
+            hashp = ((hashp * 26) + ord(pattern[i])) % mod
+            hasht = ((hasht * 26) + ord(text[i])) % mod
+
+        for i in range(n - h + 1):
+            if hashp == hasht:
+                j = 0
+                while j < h and pattern[j] == text[i + j]:
+                    j += 1
+                if j == h:
+                    out.append(i + 1)
+
+            if i < n - h:
+                hasht = (26 * (hasht - ord(text[i]) * p) + ord(text[i + h])) % mod
+                if hasht < 0:
+                    hasht += mod
+
+        return out
+
 ```
