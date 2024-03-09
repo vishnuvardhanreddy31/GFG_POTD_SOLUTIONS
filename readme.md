@@ -1,76 +1,84 @@
-## Check if frequencies can be equal
+# N-th Character After Iterations
 
-## 08-03-2024
+## 09-03-2024
 
-Given a string `s` consisting of only lower alphabetic characters, your task is to determine whether it is possible to remove at most one character from the string in such a way that the frequency of each distinct character becomes the same. If possible, the function should return `true`; otherwise, it should return `false`.
+## Problem Statement
+
+Given a binary string `s`, perform `r` iterations on string `s`, where in each iteration 0 becomes 01 and 1 becomes 10. Find the nth character (considering 0-based indexing) of the string after performing these `r` iterations.
 
 ### Example
 
-**Input:**
+#### Input:
 
-```
-s = "xyyz"
+```python
+s = "1100"
+r = 2
+n = 3
 ```
 
-**Output:**
+#### Output:
 
-```
+```python
 1
 ```
 
 **Explanation:**
-Removing one `y` will make the frequency of each character equal.
 
-**Input:**
+After the 1st iteration, `s` becomes "10100101".
+After the 2nd iteration, `s` becomes "1001100101100110".
+Now, we can clearly see that the character at the 3rd index is 1, and so the output.
 
+#### Input:
+
+```python
+s = "1010"
+r = 1
+n = 2
 ```
-s = "xxxxyyzz"
-```
 
-**Output:**
+#### Output:
 
-```
+```python
 0
 ```
 
 **Explanation:**
-The frequency cannot be made the same by removing at most one character.
 
-### Your Task
-
-You are required to complete the function `sameFreq()`, which takes a string as an input parameter and returns a boolean value denoting whether the same frequency is possible or not.
+After the 1st iteration, `s` becomes "10011001".
+Now, we can clearly see that the character at the 2nd index is 0, and so the output.
 
 ### Constraints
 
-- 1 <= |s| <= 10^5
+- 1 ≤ |s| ≤ 103
+- 1 ≤ r ≤ 20
 
-### Expected Complexity
+## Task
 
-- Time Complexity: O(|s|)
-- Auxiliary Space: O(1)
+Your task is to complete the function `nthCharacter()` which takes the string `s` and integers `r` and `n` as input parameters and returns the n-th character of the string after performing `r` operations on `s`.
 
-<h3>Python Solution</h3>
+### Expected Time Complexity
+
+O(r\*|s|)
+
+### Expected Auxiliary Space
+
+O(|s|)
+
+## Python Solution
 
 ```python
-
 class Solution:
-    def sameFreq(self, s):
-        cnt = {}
-        for char in s:
-            cnt[char] = cnt.get(char, 0) + 1
+    def nthCharacter(self, s, r, n):
+        while r > 0:
+            m = ""
+            for i in range(min(len(s), n+1)):
+                if s[i] == '1':
+                    m += "10"
+                else:
+                    m += "01"
 
-        nin = nax = cnt[s[0]]
+            s = m
+            r -= 1
 
-        for char, freq in cnt.items():
-            nin = min(nin, freq)
-            nax = max(nax, freq)
-            if nax - nin > 1:
-                return 0
-
-        cnin = sum(1 for freq in cnt.values() if freq == nin)
-
-        return len(cnt) - cnin <= 1
-
+        return s[n]
 ```
-
-Good luck, and happy coding😊!
