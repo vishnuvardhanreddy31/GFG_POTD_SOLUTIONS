@@ -1,84 +1,69 @@
-# N-th Character After Iterations
+# String Duplicate Removal
 
-## 09-03-2024
+## 10-03-2024
 
 ## Problem Statement
 
-Given a binary string `s`, perform `r` iterations on string `s`, where in each iteration 0 becomes 01 and 1 becomes 10. Find the nth character (considering 0-based indexing) of the string after performing these `r` iterations.
+Given a string `str` which may contain lowercase and uppercase characters, the task is to remove all duplicate characters from the string and find the resultant string. The order of remaining characters in the output should be the same as in the original string.
 
-### Example
+## Examples
 
-#### Input:
+### Example 1:
 
-```python
-s = "1100"
-r = 2
-n = 3
+Input:
+
+```
+str = "geEksforGEeks"
 ```
 
-#### Output:
+Output:
 
-```python
-1
+```
+"geEksforG"
 ```
 
-**Explanation:**
+Explanation: After removing duplicate characters such as E, e, k, s, we have a string as "geEksforG".
 
-After the 1st iteration, `s` becomes "10100101".
-After the 2nd iteration, `s` becomes "1001100101100110".
-Now, we can clearly see that the character at the 3rd index is 1, and so the output.
+### Example 2:
 
-#### Input:
+Input:
 
-```python
-s = "1010"
-r = 1
-n = 2
+```
+str = "HaPpyNewYear"
 ```
 
-#### Output:
+Output:
 
-```python
-0
+```
+"HaPpyNewYr"
 ```
 
-**Explanation:**
+Explanation: After removing duplicate characters such as e, a, we have a string as "HaPpyNewYr".
 
-After the 1st iteration, `s` becomes "10011001".
-Now, we can clearly see that the character at the 2nd index is 0, and so the output.
+## Constraints
 
-### Constraints
+- 1 ≤ N ≤ 10^5
+- String contains uppercase and lowercase English letters.
 
-- 1 ≤ |s| ≤ 103
-- 1 ≤ r ≤ 20
+## Expected Time Complexity
 
-## Task
+O(N)
 
-Your task is to complete the function `nthCharacter()` which takes the string `s` and integers `r` and `n` as input parameters and returns the n-th character of the string after performing `r` operations on `s`.
+## Expected Auxiliary Space
 
-### Expected Time Complexity
-
-O(r\*|s|)
-
-### Expected Auxiliary Space
-
-O(|s|)
+O(N)
 
 ## Python Solution
 
 ```python
 class Solution:
-    def nthCharacter(self, s, r, n):
-        while r > 0:
-            m = ""
-            for i in range(min(len(s), n+1)):
-                if s[i] == '1':
-                    m += "10"
-                else:
-                    m += "01"
-
-            s = m
-            r -= 1
-
-        return s[n]
+	def removeDuplicates(self,str):
+	    # code here
+	    str_set=set()
+	    new_str=""
+	    for i in str:
+	        if i not in str_set:
+	            new_str+=i
+	            str_set.add(i)
+	    return new_str
 ```
