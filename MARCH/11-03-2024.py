@@ -1,10 +1,3 @@
-# Count pairs Sum in matrices
-
-## 11-03-2024
-
-## Python Solution
-
-```python
 class Solution:
     def countPairs(self, mat1, mat2, n, x):
         sz = n * n
@@ -24,5 +17,3 @@ class Solution:
                 l += 1
 
         return cnt
-
-```
