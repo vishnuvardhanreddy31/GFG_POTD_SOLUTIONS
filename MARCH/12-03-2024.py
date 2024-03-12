@@ -1,10 +1,4 @@
 # Generalised Fibonacci numbers
-
-## 12-03-2024
-
-## Python Solution
-
-```python
 class Solution:
     def multiply(self, A, B, m):
         size = len(A)
@@ -33,5 +27,3 @@ class Solution:
             n >>= 1
 
         return (res[0][0] + res[0][1] + c * res[0][2]) % m
-
-```
