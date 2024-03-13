@@ -1,10 +1,3 @@
-# Print matrix in diagonal pattern
-
-## 13-03-2024
-
-## Python Solution
-
-```python
 class Solution:
     def matrixDiagonally(self,mat):
         # code here
@@ -22,5 +15,3 @@ class Solution:
             else:
                 ans.extend(d[k][::-1])
         return ans
-
-```
