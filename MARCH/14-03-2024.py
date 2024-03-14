@@ -1,10 +1,3 @@
-# Largest subsquare surrounded by X
-
-## 14-03-2024
-
-## Python Solution
-
-```python
 class Solution:
     def largestSubsquare(self, n, a):
         col = [[0] * n for _ in range(n)]
@@ -32,6 +25,3 @@ class Solution:
                     sq -= 1
 
         return out
-
-
-```
